@@ -1,0 +1,7 @@
+/* Declaracoes */
+int numeroDisso;
+pflut numeroDaquilo;
+
+// Atribuicoes
+numeroDisso := 5665;
+numeroDaquilo := 48.33;
