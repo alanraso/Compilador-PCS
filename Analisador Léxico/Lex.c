@@ -15,7 +15,7 @@ bool isOnComment(char *symbol, bool *isOnLargeComment, bool *isOnLineComment) {
   } else if (!*isOnLineComment && symbol[0] == '/' && symbol[1] == '/') {
     *isOnLineComment = true;
   }
-  printf("\nLarge: %d Line: %d", *isOnLargeComment, *isOnLineComment);
+
   return *isOnLargeComment || *isOnLineComment;
 }
 
@@ -29,7 +29,7 @@ bool shouldContinue(char *symbol, bool *isOnLargeComment, bool *isOnLineComment)
     }
 
     if (symbol[0] == '\n') {
-        return true;
+      return true;
     }
 
     return false;
@@ -50,13 +50,11 @@ void getTokens() {
 
     lido[i] = symbol[1];
     i++;
-    printf("\n\nLido ate agora: %s", lido);
+    //printf("\n\nLido ate agora: %s", lido);
 
     if(shouldContinue(symbol, &isOnLargeComment, &isOnLineComment)) {
         continue;
     }
-
-    printf("\nNao eh comentario!");
   }
 }
 
