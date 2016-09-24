@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1474670966 source:c:\alan\compiladores\compilador-pcs\lexico\table\table.c
+	<stdio.h>
+	<stdbool.h>
+	<string.h>
+
+1474675204 source:c:\alan\compiladores\compilador-pcs\lexico\lex.c
+	<stdio.h>
+	<strings.h>
+	"Table/Table.h"
+
+1474669786 c:\alan\compiladores\compilador-pcs\lexico\table\table.h
+	<stdbool.h>
+

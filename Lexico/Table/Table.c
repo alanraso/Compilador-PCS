@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include<string.h>
 
 #define TABLE_MAX_SIZE 100
 #define TABLE_LINE_MAX_SIZE 20
@@ -26,7 +27,7 @@ void addTokenOnTable(char *line) {
 }
 
 void buildTable() {
-  FILE *tableFile = fopen("TABLE_FILE_NAME", "r");
+  FILE *tableFile = fopen(TABLE_FILE_NAME, "r");
   char line[TABLE_LINE_MAX_SIZE];
   int count = 0;
 
@@ -35,17 +36,17 @@ void buildTable() {
   }
 
   while(fgets(line, TABLE_LINE_MAX_SIZE, tableFile) != NULL) {
-     addTokenOnTable(&line);
-     count++
+     addTokenOnTable(line);
+     count++;
   }
 
-  size = count;
+  tableSize = count;
   fclose(tableFile);
 }
 
 bool hasOnTable(char *symbol) {
   int i;
-  for (i = 0; i < size; i++) {
+  for (i = 0; i < tableSize; i++) {
     if (tokenTable[i] == symbol) {
       return 1;
     }
