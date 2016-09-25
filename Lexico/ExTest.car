@@ -1,11 +1,19 @@
-/* Declaracoes
+func incrementa(int param)(int) {
+  // So incrementa
+  param := param + 1;
+  retorna param;
+}
+
+func main()() {
+  /* Declaracoes
   de variaveis
  */
 
-int numeroDisso;
-pflut numeroDaquilo;
+  int numeroDisso;
+  pflut numeroDaquilo;
 
-// Atribuicoes
+  // Atribuicoes
 
-numeroDisso := 5665;
-numeroDaquilo := 48.33;
+  numeroDisso := 5665;
+  numeroDaquilo := 48.33;
+}

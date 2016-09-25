@@ -31,6 +31,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="ExTest.car" />
+		<Unit filename="Lex.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Table/Table.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Table/Table.h" />
+		<Unit filename="Table/Table.txt" />
 		<Extensions>
 			<code_completion />
 			<envvars />
