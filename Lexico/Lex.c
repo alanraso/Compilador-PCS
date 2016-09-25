@@ -29,26 +29,17 @@ void reset(char *stringToReset) {
   }
 }
 
-bool isDigitOrLetter(char c) {
-  if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'z')) {
-    return true;
-  }
-  return false;
-}
-
-bool isSeparator(char c) {
-  if (c == ';' || c == '(' || c == '[' || c == ')' || c == ']') {
-    return true;
-  }
-  return false;
-}
-
 void getToken(FILE *file, char *token) {
   char possibleToken[MAX_TOKEN_SIZE];
   int i = 0;
 
   while (!feof(file)) {
     char current = fgetc(file);
+
+    char currentString[2];
+    currentString[1] = 0;
+    currentString[0] = current;
+
     possibleToken[i+1] = 0;
 
     if (current == '/') {
@@ -74,7 +65,7 @@ void getToken(FILE *file, char *token) {
     } else if (hasOnTable(possibleToken) == true) {
       strcpy(token, possibleToken);
       return;
-    } else if (isSeparator(current) == true) {
+    } else if (hasOnTable(currentString) == true) {
         if (i != 0) {
           ungetc(current, file);
           strcpy(token, possibleToken);
@@ -96,16 +87,17 @@ void getToken(FILE *file, char *token) {
 }
 
 int main() {
-  int i; char bla[100];
+  char token[100];
   FILE *file = fopen(FILE_NAME, "r");
   buildTable();
 
   while(!feof(file)) {
-    getToken(file, bla);
-    printf("%s\n", bla);
-    reset(bla);
+    getToken(file, token);
+    printf("%s\n", token);
+    reset(token);
   }
 
+  fclose(file);
   return 0;
 }
 

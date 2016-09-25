@@ -1,6 +1,6 @@
 func incrementa(int param)(int) {
   // So incrementa
-  param := param + 1;
+  param := param+1;
   retorna param;
 }
 
