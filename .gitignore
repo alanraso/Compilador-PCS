@@ -1,5 +1,6 @@
 # Word temporary
 ~$*.doc*
+*.tmp
 
 # Compiled
 *.o
