@@ -31,7 +31,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="ExTest.car" />
+		<Unit filename="ENTRADA.txt" />
+		<Unit filename="Exemplos/Exemplo1.txt" />
+		<Unit filename="Exemplos/Exemplo2.txt" />
 		<Unit filename="Lex.c">
 			<Option compilerVar="CC" />
 		</Unit>

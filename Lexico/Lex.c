@@ -2,7 +2,7 @@
 #include <strings.h>
 #include "Table/Table.h"
 
-#define FILE_NAME "ExTest.car"
+#define FILE_NAME "ENTRADA.txt"
 
 void advanceLargeComment(FILE *file) {
   char symbols[3];
@@ -22,6 +22,63 @@ void advanceLineComment(FILE *file) {
   }
 }
 
+char lookAhead(FILE *file) {
+  char c = fgetc(file);
+
+  ungetc(c, file);
+  return c;
+}
+
+bool isCompoundSymbol(FILE *file, const char current, char *token) {
+    if (current == ':' && lookAhead(file) == '=') {
+      fgetc(file);
+      strcpy(token, ":=");
+      return true;
+    } else if (current == '|' && lookAhead(file) == '|') {
+      fgetc(file);
+      strcpy(token, "||");
+      return true;
+    }
+
+    return false;
+}
+
+int getToken(FILE *file, char *token) {
+  char current, possibleToken[100];
+  int i = 0;
+
+  while (!feof(file)) {
+    current = fgetc(file);
+
+    if (isDigit(current)) {
+      possibleToken[i] = current; i++;
+    } else if (current == '.' && isDigit(lookAhead(file))) {
+      possibleToken[i] = current; i++;
+    } else if (isLetter(current)) {
+      possibleToken[i] = current; i++;
+    } else if ((current == ' ' || current == '\n') && i == 0) {
+      continue;
+    } else if (isCompoundSymbol(file, current, token)) {
+      break;
+    } else if (current == '/' && lookAhead(file) == '*') {
+      advanceLargeComment(file);
+    } else if (current == '/' && lookAhead(file) == '/') {
+      advanceLineComment(file);
+    } else if (i != 0) {
+      ungetc(current, file);
+      possibleToken[i] = 0;
+      strcpy(token, possibleToken);
+      break;
+    } else {
+      token[0] = current;
+      token[1] = 0;
+      break;
+    }
+  }
+
+  return getTokenType(token);
+}
+
 void reset(char *stringToReset) {
   int i;
   for (i = 0; i < MAX_TOKEN_SIZE; i++) {
@@ -29,71 +86,28 @@ void reset(char *stringToReset) {
   }
 }
 
-void getToken(FILE *file, char *token) {
-  char possibleToken[MAX_TOKEN_SIZE];
-  int i = 0;
-
-  while (!feof(file)) {
-    char current = fgetc(file);
-
-    char currentString[2];
-    currentString[1] = 0;
-    currentString[0] = current;
-
-    possibleToken[i+1] = 0;
-
-    if (current == '/') {
-      possibleToken[i] = current;
-      current = fgetc(file);
-      if (current == '/') {
-        advanceLineComment(file);
-      } else if (current == '*') {
-        advanceLargeComment(file);
-      } else {
-        strcpy(token, possibleToken);
-        return;
-      }
-      reset(possibleToken);
-      i = 0;
-    } else if (current == ' ' || current == '\n') {
-      if (i == 0) {
-        continue;
-      } else {
-        strcpy(token, possibleToken);
-        return;
-      }
-    } else if (hasOnTable(possibleToken) == true) {
-      strcpy(token, possibleToken);
-      return;
-    } else if (hasOnTable(currentString) == true) {
-        if (i != 0) {
-          ungetc(current, file);
-          strcpy(token, possibleToken);
-          return;
-        } else {
-          token[0] = current;
-          token[1] = 0;
-          return;
-        }
-    } else if (i > 100) {
-      reset(possibleToken);
-      i = 0;
-    } else {
-      possibleToken[i] = current;
-      i++;
-    }
+void printToken(const char *token, int type) {
+  if (token[0] == EOF) {
+    return;
   }
 
+  int i;
+  printf("%s", token);
+  for (i = 0; i < 30 - strlen(token); i++) {
+    printf(" ");
+  }
+  printf("%d\n", type);
 }
 
 int main() {
-  char token[100];
+  char token[100]; int type;
   FILE *file = fopen(FILE_NAME, "r");
-  buildTable();
 
+  printf("Tipos -> 0 - Identificador, 1 - Palavra reservada, 2 - Numero, 3 - Sinal, 4 - Nenhum\n\n");
+  printf("Token                        Tipo\n");
   while(!feof(file)) {
-    getToken(file, token);
-    printf("%s\n", token);
+    type = getToken(file, token);
+    printToken(token, type);
     reset(token);
   }
 

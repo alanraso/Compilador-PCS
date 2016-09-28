@@ -1,0 +1,8 @@
+func main()() {
+  /* Declaracoes
+  de variaveis
+ */
+
+  int numero;
+  numero = 0;
+}

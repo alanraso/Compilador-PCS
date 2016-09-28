@@ -1,29 +1,35 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include "Table.h"
 
-#define TABLE_MAX_SIZE 100
-#define TABLE_LINE_MAX_SIZE 20
+#define TABLE_MAX_SIZE 200
+#define TOKEN_MAX_SIZE 100
+#define TABLE_LINE_MAX_SIZE 50
 #define TABLE_FILE_PATH "./Table/Table.txt"
 
-char tokenTable[TABLE_MAX_SIZE][TABLE_LINE_MAX_SIZE];
-int tableSize;
+typedef struct Token {
+  char token[TOKEN_MAX_SIZE];
+  int type;
+} Token;
 
-int convertStringToInt(char *number) {
-    int i = 0, lenght = strlen(number), convertedNumber = 0, pot = 1;
+Token tokenTable[TABLE_MAX_SIZE];
+int tableSize = 0;
 
-    for(i = lenght - 1; i >= 0; i--) {
-        convertedNumber = convertedNumber + pot*(number[i] - '0');
-        pot = pot*10;
-    }
-    return convertedNumber;
+bool isLetter(char c) {
+  return c >= 'A' && c <= 'z';
 }
 
-void addTokenOnTable(char *line) {
-    char *number = strtok(line, " ");
-    char *token = strtok(strtok(NULL, " "), "\n");
+bool isDigit(char c) {
+  return c >= '0' && c <= '9';
+}
 
-    strcpy(tokenTable[convertStringToInt(number)], token);
+void addTokenOnTable(char *line, int count) {
+  char *token = strtok(line, " ");
+  char *number = strtok(strtok(NULL, " "), "\n");
+
+  strcpy(tokenTable[count].token, token);
+  tokenTable[count].type = number[0] - '0';
 }
 
 void buildTable() {
@@ -36,22 +42,41 @@ void buildTable() {
     printf("Erro ao ler o arquivo!");
   }
 
+  // Ignorar primeiras duas linha
+  fgets(line, TABLE_LINE_MAX_SIZE, tableFile);
+  fgets(line, TABLE_LINE_MAX_SIZE, tableFile);
+
   while(fgets(line, TABLE_LINE_MAX_SIZE, tableFile) != NULL) {
-     addTokenOnTable(line);
-     count++;
+    addTokenOnTable(line, count);
+    count++;
   }
 
   tableSize = count;
   fclose(tableFile);
 }
 
-bool hasOnTable(char *symbol) {
-  int i;
+int getTokenType(const char *token) {
+  int i; char firstChar = token[0];
+
+  if (tableSize == 0) {
+    buildTable();
+  }
+
+  if (isDigit(firstChar) || (firstChar == '.' && isDigit(token[1]))) {
+    return Number;
+  }
 
   for (i = 0; i < tableSize; i++) {
-    if (strcmp(tokenTable[i], symbol) == 0) {
-      return true;
+    Token tokenFromTable = tokenTable[i];
+    //printf("%s\n", token);
+    if (strcmp(tokenFromTable.token, token) == 0) {
+      return tokenFromTable.type;
     }
   }
-  return false;
+
+  if (isLetter(firstChar)) {
+    return ID;
+  }
+
+  return None;
 }

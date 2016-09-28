@@ -16,4 +16,8 @@ func main()() {
 
   numeroDisso := 5665;
   numeroDaquilo := 48.33;
+
+  if (numeroDisso = 0 || numeroDaquilo = 3) {
+    printf("Entered if");
+  }
 }

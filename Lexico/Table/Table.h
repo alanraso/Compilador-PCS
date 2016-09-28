@@ -2,5 +2,11 @@
 
 #define MAX_TOKEN_SIZE 100
 
-void buildTable();
-bool hasOnTable(char *symbol);
+enum TokenType {
+  ID = 0, Reserved, Number, Operator, None
+};
+
+bool isLetter(char c);
+bool isDigit(char c);
+int getTokenType(const char *token);
+
