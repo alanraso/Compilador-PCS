@@ -1,0 +1,32 @@
+// Tabela de tipos de atomos
+// 1 - Palavra reservada 3 - Sinais
+; 3
+( 3
+) 3
+{ 3
+} 3
+[ 3
+] 3
+! 3
++ 3
+- 3
+* 3
+/ 3
+% 3
+|| 3
+& 3
+:= 3
+= 3
+int 1
+caract 1
+pflut 1
+bool 1
+comp 1
+deftipo 1
+func 1
+se 1
+senao 1
+enquanto 1
+para 1
+retorna 1
+main 1

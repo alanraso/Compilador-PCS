@@ -1,2 +1,9 @@
 # Word temporary
 ~$*.doc*
+*.tmp
+
+# Compiled
+*.o
+*.exe
+obj/
+bin/

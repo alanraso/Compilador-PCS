@@ -1,0 +1,13 @@
+func main()() {
+  /* Declaracoes
+  de variaveis
+  */
+
+  // Atribuicoes
+  int numero;
+  numero = 0;
+
+  if (numero = 0) {
+    retorna;
+  }
+}
