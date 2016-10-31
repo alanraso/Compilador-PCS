@@ -2,8 +2,6 @@
 #include <strings.h>
 #include "Table/Table.h"
 
-#define FILE_NAME "ENTRADA.txt"
-
 void advanceLargeComment(FILE *file) {
   char symbols[3];
   symbols[1] = ' '; symbols[2] = 0;
@@ -86,7 +84,7 @@ void reset(char *stringToReset) {
   }
 }
 
-void printToken(const char *token, int type) {
+void printToken(char *token, int type) {
   if (token[0] == EOF) {
     return;
   }
@@ -97,21 +95,5 @@ void printToken(const char *token, int type) {
     printf(" ");
   }
   printf("%d\n", type);
+  reset(token);
 }
-
-int main() {
-  char token[100]; int type;
-  FILE *file = fopen(FILE_NAME, "r");
-
-  printf("Tipos -> 0 - Identificador, 1 - Palavra reservada, 2 - Numero, 3 - Sinal, 4 - Nenhum\n\n");
-  printf("Token                        Tipo\n");
-  while(!feof(file)) {
-    type = getToken(file, token);
-    printToken(token, type);
-    reset(token);
-  }
-
-  fclose(file);
-  return 0;
-}
-

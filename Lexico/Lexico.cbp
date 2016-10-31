@@ -31,6 +31,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../Reconhecedor/Reconhecedor.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="ENTRADA.txt" />
 		<Unit filename="Exemplos/Exemplo1.txt" />
 		<Unit filename="Exemplos/Exemplo2.txt" />
