@@ -41,8 +41,8 @@ bool isCompoundSymbol(FILE *file, const char current, char *token) {
     return false;
 }
 
-int getToken(FILE *file, char *token) {
-  char current, possibleToken[100];
+void getToken(FILE *file, Token *tokenToReturn) {
+  char current, possibleToken[MAX_TOKEN_SIZE], token[MAX_TOKEN_SIZE];
   int i = 0;
 
   while (!feof(file)) {
@@ -74,26 +74,7 @@ int getToken(FILE *file, char *token) {
     }
   }
 
-  return getTokenType(token);
-}
-
-void reset(char *stringToReset) {
-  int i;
-  for (i = 0; i < MAX_TOKEN_SIZE; i++) {
-    stringToReset[i] = 0;
-  }
-}
-
-void printToken(char *token, int type) {
-  if (token[0] == EOF) {
-    return;
-  }
-
-  int i;
-  printf("%s", token);
-  for (i = 0; i < 30 - strlen(token); i++) {
-    printf(" ");
-  }
-  printf("%d\n", type);
-  reset(token);
+  strcpy(tokenToReturn->token, token);
+  tokenToReturn->type = getTokenType(token);
+  printf("Get Token: %s / tipo: %d\n", tokenToReturn->token, tokenToReturn->type);
 }

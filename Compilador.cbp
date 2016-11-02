@@ -19,6 +19,19 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Lexico/ENTRADA.txt" />
+		<Unit filename="Lexico/Lex.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lexico/Lex.h" />
+		<Unit filename="Lexico/Table/Table.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lexico/Table/Table.h" />
+		<Unit filename="Reconhecedor/ENTRADA.txt" />
+		<Unit filename="Reconhecedor/Reconhecedor.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />

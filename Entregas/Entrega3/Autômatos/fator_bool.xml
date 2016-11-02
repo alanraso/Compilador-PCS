@@ -25,6 +25,11 @@
   </transition>
   <transition>
     <from>0</from>
+    <to>1</to>
+    <read>Comparacao</read>
+  </transition>
+  <transition>
+    <from>0</from>
     <to>3</to>
     <read>"("</read>
   </transition>
@@ -32,6 +37,11 @@
     <from>2</from>
     <to>1</to>
     <read>ExpBool</read>
+  </transition>
+  <transition>
+    <from>2</from>
+    <to>1</to>
+    <read>Comparacao</read>
   </transition>
   <transition>
     <from>3</from>

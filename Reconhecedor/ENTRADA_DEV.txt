@@ -2,18 +2,25 @@
     PROGRAMA DE TESTE COM TODOS OS ELEMENTOS DA LINGUAGEM
    ******************************************************* */
 
-int global;
+pflut global;
 
 func fatorial(int x)(int) {
-  se (x < 1) {
-    retorna -1;
+  int variavel;
+  variavel := 80;
+
+  se(comp) {
+    variavel := 5;
+  } senao {
+    retorna 4;
   }
 
-  se (x = 1) {
-    retorna 1;
+  enquanto(comp) {
+    fatorial(9);
   }
 
-  retorna fatorial(x)*fatorial(x-1);
+  para (i := 0; comp; i := 5) {
+    variavel := 6;
+  }
 }
 
 func main()() {

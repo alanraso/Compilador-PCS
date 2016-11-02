@@ -4,14 +4,8 @@
 #include "Table.h"
 
 #define TABLE_MAX_SIZE 200
-#define TOKEN_MAX_SIZE 100
 #define TABLE_LINE_MAX_SIZE 50
 #define TABLE_FILE_PATH "Lexico/Table/Table.txt"
-
-typedef struct Token {
-  char token[TOKEN_MAX_SIZE];
-  int type;
-} Token;
 
 Token tokenTable[TABLE_MAX_SIZE];
 int tableSize = 0;
