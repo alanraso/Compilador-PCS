@@ -29,6 +29,7 @@
 		</Unit>
 		<Unit filename="Lexico/Table/Table.h" />
 		<Unit filename="Reconhecedor/ENTRADA.txt" />
+		<Unit filename="Reconhecedor/ENTRADA_DEV.txt" />
 		<Unit filename="Reconhecedor/Reconhecedor.c">
 			<Option compilerVar="CC" />
 		</Unit>

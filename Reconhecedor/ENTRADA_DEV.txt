@@ -6,19 +6,24 @@ pflut global;
 
 func fatorial(int x)(int) {
   int variavel;
-  variavel := 80;
+  int aux[2];
+  bool compara;
 
-  se(comp) {
+  aux := 80+(2+3*4)/2-(4+2)*7*5-1;
+  compara := cond;
+
+  se(cond) {
     variavel := 5;
+    variavel := aux[1];
   } senao {
-    retorna 4;
+    variavel := fatorial(3);
   }
 
-  enquanto(comp) {
+  enquanto(cond) {
     fatorial(9);
   }
 
-  para (i := 0; comp; i := 5) {
+  para (i := 0; cond; i := 5) {
     variavel := 6;
   }
 }
@@ -31,14 +36,13 @@ func main()() {
 
   // Código apenas para teste de expressões
   i := 2+4*4-5*4**2;
-  expBool := i < 3 || i > 6;
 
   // Preenche array de 1 a 6
-  para (i = 0; i < 6; i := i+1) {
+  para (i = 0; cond; i := i+1) {
     num[i] := i+1;
   }
 
-  enquanto (i > 0) {
+  enquanto (cond) {
     num[i] := fatorial(num[i]);
     i = i-1;
   }

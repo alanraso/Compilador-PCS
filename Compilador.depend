@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1478033771 source:c:\alan\compiladores\compilador-pcs\lexico\lex.c
+1478096187 source:c:\alan\compiladores\compilador-pcs\lexico\lex.c
 	<stdio.h>
 	<strings.h>
 	"Table/Table.h"
@@ -13,7 +13,7 @@
 	<string.h>
 	"Table.h"
 
-1478051408 source:c:\alan\compiladores\compilador-pcs\reconhecedor\reconhecedor.c
+1478096292 source:c:\alan\compiladores\compilador-pcs\reconhecedor\reconhecedor.c
 	<stdio.h>
 	<string.h>
 	"../Lexico/Lex.h"
