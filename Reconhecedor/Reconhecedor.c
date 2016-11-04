@@ -2,7 +2,7 @@
 #include<string.h>
 #include "../Lexico/Lex.h"
 
-#define FILE_NAME "Reconhecedor/ENTRADA_DEV.txt"
+#define FILE_NAME "Reconhecedor/ENTRADA.txt"
 
 FILE *file;
 Token token;
@@ -22,7 +22,7 @@ bool isReturnCommand();
 bool isFactor();
 bool isTerm();
 bool isArithmeticExp(char *possibleFinalWords[], int size);
-bool isBooleanExp();
+bool isBooleanExp(char *possibleFinalWords[], int size);
 bool isExp(char *finalWords[], int size);
 
 bool isArgumentList();
@@ -35,8 +35,7 @@ bool isWhileCommand();
 bool isForCommand();
 
 void semantico_tbd() {
-  //TODO: imprimir TODO
-  //printf("TODO\n");
+  printf("TODO\n");
 }
 
 /* *******************************
@@ -62,7 +61,7 @@ bool isMatrixIdentifier() {
   }
 
   getNextToken();
-  if (isTokenEqual(";")) {
+  if (isTokenEqual(";") || isTokenEqual(")") || isTokenEqual("]")) {
     return true;
   }
   if (!isTokenEqual("[")) {
@@ -103,7 +102,7 @@ bool isFunction() {
   }
 
   getNextToken();
-  if(!isIdentifier()) {
+  if(!isIdentifier() && !isTokenEqual("main")) {
     return false;
   }
 
@@ -149,16 +148,19 @@ bool isCommandList() {
 
   if (isIdentifier()) {
     getNextToken();
+    if (isFunctionCallCommand()) {
+      getNextToken();
+      if (!isTokenEqual(";")) {
+        return false;
+      }
+      getNextToken();
+    }
   }
 
-  if (isFunctionCallCommand()) {
+  if (isIteraction() || isDeclarationCommand() || isAttribution(";") || isReturnCommand()) {
     getNextToken();
-    if (!isTokenEqual(";")) {
-      return false;
-    }
-    getNextToken();
-  } else if (isIteraction() || isConditional() || isDeclarationCommand() || isAttribution(";") || isReturnCommand()) {
-    getNextToken();
+  } else if (!isConditional()) {
+    return false;
   }
 
   if (isTokenEqual("}")) {
@@ -186,6 +188,7 @@ bool isAttribution(char *finalWord) {
 
 bool isConditional() {
   semantico_tbd();
+  char *finalWords[1] = {")"};
 
   if (!isTokenEqual("se")) {
     return false;
@@ -197,12 +200,7 @@ bool isConditional() {
   }
 
   getNextToken();
-  if (!isBooleanExp()) {
-    return false;
-  }
-
-  getNextToken();
-  if (!isTokenEqual(")")) {
+  if (!isBooleanExp(finalWords, 1)) {
     return false;
   }
 
@@ -210,12 +208,13 @@ bool isConditional() {
   if (!isTokenEqual("{")) {
     return false;
   }
-
+  printf("A\n");
   getNextToken();
   if (!isCommandList()) {
     return false;
   }
 
+  printf("C\n");
   getNextToken();
   if (isTokenEqual("senao")) {
     getNextToken();
@@ -277,15 +276,16 @@ bool isReturnCommand() {
 bool isComparison() {
   semantico_tbd();
   char *beforeFinalWords[4] = {">", "<", "=", "!="};
-  char *afterFinalWords[1] = {""};
 
-  if (!isArithmeticExp(beforeFinalWords, 4)) {
+  if (!isArithmeticExp(beforeFinalWords, 0)) {
     return false;
   }
 
-  getNextToken();
-  if (!isArithmeticExp(afterFinalWords, 0)) {
-    return false;
+  if (isTokenOnList(beforeFinalWords, 4)) {
+    getNextToken();
+    if(!isArithmeticExp(beforeFinalWords, 0)) {
+      return false;
+    }
   }
 
   return true;
@@ -295,10 +295,12 @@ bool isFactor() {
   semantico_tbd();
   char *finalWords[1] = {")"};
 
+  if (isMatrixIdentifier()) {
+    return true;
+  }
+
   if (isNumber() || isFunctionCallCommand()) {
     getNextToken();
-  } else if (!isMatrixIdentifier()) {
-    return false;
   } else if (isTokenEqual("(")) {
     getNextToken();
     if (!isArithmeticExp(finalWords, 1)) {
@@ -347,24 +349,71 @@ bool isArithmeticExp(char *possibleFinalWords[], int size) {
   return true;
 }
 
-bool isTermBool() {
-  if (!isMatrixIdentifier() && !isComparison()) {
+bool isFactorBool() {
+  semantico_tbd();
+  char *finalWords[1] = {")"};
+
+  if (isTokenEqual("(")) {
+    getNextToken();
+    if (isBooleanExp(finalWords, 1)) {
+      getNextToken();
+      return true;
+    }
+  }
+
+  if (isTokenEqual("!")) {
+    getNextToken();
+  }
+
+  if (!isComparison()) {
     return false;
   }
 
   return true;
 }
 
-bool isBooleanExp() {
+bool isTermBool() {
   semantico_tbd();
 
-  return isTokenEqual("cond");
+  if (!isFactorBool()) {
+    return false;
+  }
+
+  while (isTokenEqual("&")) {
+    getNextToken();
+    if (!isFactorBool()) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool isBooleanExp(char *possibleFinalWords[], int size) {
+  semantico_tbd();
+
+  if (!isTermBool()) {
+    return false;
+  }
+
+  while (isTokenEqual("||")) {
+    getNextToken();
+    if (!isTermBool()) {
+      return false;
+    }
+  }
+
+  if (size != 0 && !isTokenOnList(possibleFinalWords, size)) {
+    return false;
+  }
+
+  return true;
 }
 
 bool isExp(char *finalWords[], int size) {
   semantico_tbd();
 
-  return isArithmeticExp(finalWords, size) || isBooleanExp();
+  return isArithmeticExp(finalWords, size) || isBooleanExp(finalWords, size);
 }
 
 /* *******************************
@@ -438,6 +487,8 @@ bool isArgumentList() {
 }
 
 bool isWhileCommand() {
+  char *finalWords[1] = {")"};
+
   if (!isTokenEqual("enquanto")) {
     return false;
   }
@@ -448,12 +499,7 @@ bool isWhileCommand() {
   }
 
   getNextToken();
-  if (!isBooleanExp()) {
-    return false;
-  }
-
-  getNextToken();
-  if (!isTokenEqual(")")) {
+  if (!isBooleanExp(finalWords, 1)) {
     return false;
   }
 
@@ -471,6 +517,8 @@ bool isWhileCommand() {
 }
 
 bool isForCommand() {
+  char *finalWords[1] = {";"};
+
   if (!isTokenEqual("para")) {
     return false;
   }
@@ -491,12 +539,7 @@ bool isForCommand() {
   }
 
   getNextToken();
-  if (!isBooleanExp()) {
-    return false;
-  }
-
-  getNextToken();
-  if (!isTokenEqual(";")) {
+  if (!isBooleanExp(finalWords, 1)) {
     return false;
   }
 
@@ -528,27 +571,25 @@ bool isForCommand() {
    ******************************* */
 
 int main() {
-  file = fopen(FILE_NAME, "r"); int i;
+  file = fopen(FILE_NAME, "r");
 
   if (!file) {
     printf("Erro ao ler arquivo!\n");
     return 0;
   }
 
-  for(i = 0; i < 2; i ++) {
+  while(!feof(file)) {
     getToken(file, &token);
-    if (isFunction()) {
-      printf("Funcao!\n");
-    } else if (isDeclarationCommand()) {
-      printf("Declaracao!\n");
+    if (isFunction() || isDeclarationCommand()) {
+      //Identified Function or Declaration
+    } else if (token.token[0] == -1) {
+        printf("Texto da linguagem aceito!");
+        return 0;
     } else {
-      printf("Deu ruim!\n");
+      printf("Texto da linguagem incorreto!");
+      return 0;
     }
   }
-
-//  while(!feof(file)) {
-//
-//  }
 
   fclose(file);
   return 0;

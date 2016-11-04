@@ -36,6 +36,10 @@ bool isCompoundSymbol(FILE *file, const char current, char *token) {
       fgetc(file);
       strcpy(token, "||");
       return true;
+    } else if (current == '!' && lookAhead(file) == '=') {
+      fgetc(file);
+      strcpy(token, "!=");
+      return true;
     }
 
     return false;
@@ -76,5 +80,4 @@ void getToken(FILE *file, Token *tokenToReturn) {
 
   strcpy(tokenToReturn->token, token);
   tokenToReturn->type = getTokenType(token);
-  printf("Get Token: %s / tipo: %d\n", tokenToReturn->token, tokenToReturn->type);
 }
