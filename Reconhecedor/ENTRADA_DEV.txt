@@ -1,0 +1,39 @@
+/* *******************************************************
+    PROGRAMA DE TESTE COM TODOS OS ELEMENTOS DA LINGUAGEM
+   ******************************************************* */
+
+int global[x > 2 & !(x < 5 || x != 7) ];
+
+bool globalBool;
+
+func fatorial(int x)(int) {
+
+  retorna fatorial(x)*fatorial(x-1);
+
+  se (x < 1) {
+    retorna -1;
+  } senao se (x = 1) {
+    retorna 1;
+  }
+}
+
+func main()() {
+
+  int num[6];
+  int i;
+  bool expBool;
+
+  // Código apenas para teste de expressões
+  i := 2+4*4-5*4**2;
+  expBool := i < 3 || i > 6;
+
+  // Preenche array de 1 a 6
+  para (i := 0; i < 6; i := i+1) {
+    num[i] := i+1;
+  }
+
+  enquanto (i > -1) {
+    num[i] := fatorial(num[i]);
+    i := i-1;
+  }
+}

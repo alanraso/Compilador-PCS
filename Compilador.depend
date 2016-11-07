@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1478107320 source:c:\alan\compiladores\compilador-pcs\lexico\lex.c
+1478294054 source:c:\alan\compiladores\compilador-pcs\lexico\lex.c
 	<stdio.h>
 	<strings.h>
 	"Table/Table.h"
@@ -7,17 +7,34 @@
 1477963232 c:\alan\compiladores\compilador-pcs\lexico\table\table.h
 	<stdbool.h>
 
-1477963239 source:c:\alan\compiladores\compilador-pcs\lexico\table\table.c
+1478233338 source:c:\alan\compiladores\compilador-pcs\lexico\table\table.c
 	<stdio.h>
 	<stdbool.h>
 	<string.h>
 	"Table.h"
 
-1478107621 source:c:\alan\compiladores\compilador-pcs\reconhecedor\reconhecedor.c
+1478547990 source:c:\alan\compiladores\compilador-pcs\reconhecedor\reconhecedor.c
 	<stdio.h>
 	<string.h>
 	"../Lexico/Lex.h"
+	"Data/Data.h"
+	"Expressao/Expressao.h"
 
-1477963561 c:\alan\compiladores\compilador-pcs\lexico\lex.h
+1478294016 c:\alan\compiladores\compilador-pcs\lexico\lex.h
 	"Table/Table.h"
+
+1478557014 source:c:\alan\compiladores\compilador-pcs\reconhecedor\data\data.c
+	<string.h>
+	<stdio.h>
+	"../../Lexico/Lex.h"
+
+1478558005 source:c:\alan\compiladores\compilador-pcs\reconhecedor\expressao\expressao.c
+	<stdio.h>
+	<string.h>
+	"../../Lexico/Lex.h"
+	"../Data/Data.h"
+
+1478557013 c:\alan\compiladores\compilador-pcs\reconhecedor\data\data.h
+
+1478294127 c:\alan\compiladores\compilador-pcs\reconhecedor\expressao\expressao.h
 

@@ -11,7 +11,7 @@ Token tokenTable[TABLE_MAX_SIZE];
 int tableSize = 0;
 
 bool isLetter(char c) {
-  return c >= 'A' && c <= 'z';
+  return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
 }
 
 bool isDigit(char c) {

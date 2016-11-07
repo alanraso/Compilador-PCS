@@ -10,9 +10,9 @@
     <final/>
   </state>
   <state id="3" name="q3">
+    <final/>
   </state>
   <state id="4" name="q4">
-    <final/>
   </state>
   <state id="5" name="q5">
   </state>
@@ -21,9 +21,9 @@
   <state id="7" name="q7">
   </state>
   <state id="8" name="q8">
-    <final/>
   </state>
   <state id="9" name="q9">
+    <final/>
   </state>
   <state id="10" name="q10">
   </state>
@@ -31,8 +31,13 @@
   </state>
   <transition>
     <from>0</from>
+    <to>0</to>
+    <read>"!"</read>
+  </transition>
+  <transition>
+    <from>0</from>
     <to>1</to>
-    <read>"-"</read>
+    <read>"("</read>
   </transition>
   <transition>
     <from>0</from>
@@ -42,161 +47,201 @@
   <transition>
     <from>0</from>
     <to>3</to>
-    <read>"("</read>
-  </transition>
-  <transition>
-    <from>0</from>
-    <to>4</to>
     <read>Num</read>
   </transition>
   <transition>
     <from>1</from>
-    <to>2</to>
-    <read>ID</read>
-  </transition>
-  <transition>
-    <from>1</from>
-    <to>3</to>
-    <read>"("</read>
-  </transition>
-  <transition>
-    <from>1</from>
-    <to>4</to>
-    <read>Num</read>
-  </transition>
-  <transition>
-    <from>2</from>
-    <to>1</to>
-    <read>"-"</read>
-  </transition>
-  <transition>
-    <from>2</from>
     <to>5</to>
-    <read>"("</read>
+    <read>Expbool</read>
   </transition>
   <transition>
     <from>2</from>
     <to>6</to>
+    <read>"("</read>
+  </transition>
+  <transition>
+    <from>2</from>
+    <to>7</to>
     <read>"["</read>
   </transition>
   <transition>
     <from>2</from>
-    <to>1</to>
-    <read>"**"</read>
+    <to>4</to>
+    <read>"&gt;"</read>
   </transition>
   <transition>
     <from>2</from>
-    <to>1</to>
-    <read>"*"</read>
+    <to>4</to>
+    <read>"&lt;"</read>
   </transition>
   <transition>
     <from>2</from>
-    <to>1</to>
-    <read>"/"</read>
+    <to>4</to>
+    <read>"="</read>
   </transition>
   <transition>
     <from>2</from>
-    <to>1</to>
-    <read>"+"</read>
+    <to>4</to>
+    <read>"!="</read>
+  </transition>
+  <transition>
+    <from>2</from>
+    <to>4</to>
+    <read>"&lt;="</read>
+  </transition>
+  <transition>
+    <from>2</from>
+    <to>4</to>
+    <read>"&gt;="</read>
+  </transition>
+  <transition>
+    <from>2</from>
+    <to>4</to>
+    <read>"&amp;"</read>
+  </transition>
+  <transition>
+    <from>2</from>
+    <to>4</to>
+    <read>"||"</read>
   </transition>
   <transition>
     <from>3</from>
-    <to>11</to>
-    <read>ExpAritimetica</read>
-  </transition>
-  <transition>
-    <from>4</from>
-    <to>1</to>
-    <read>"-"</read>
-  </transition>
-  <transition>
-    <from>4</from>
-    <to>1</to>
-    <read>"**"</read>
-  </transition>
-  <transition>
-    <from>4</from>
-    <to>1</to>
-    <read>"*"</read>
-  </transition>
-  <transition>
-    <from>4</from>
-    <to>1</to>
-    <read>"/"</read>
-  </transition>
-  <transition>
-    <from>4</from>
-    <to>1</to>
-    <read>"+"</read>
-  </transition>
-  <transition>
-    <from>5</from>
-    <to>9</to>
-    <read>Exp</read>
-  </transition>
-  <transition>
-    <from>5</from>
     <to>4</to>
+    <read>"&gt;"</read>
+  </transition>
+  <transition>
+    <from>3</from>
+    <to>4</to>
+    <read>"&lt;"</read>
+  </transition>
+  <transition>
+    <from>3</from>
+    <to>4</to>
+    <read>"="</read>
+  </transition>
+  <transition>
+    <from>3</from>
+    <to>4</to>
+    <read>"!="</read>
+  </transition>
+  <transition>
+    <from>3</from>
+    <to>4</to>
+    <read>"&lt;="</read>
+  </transition>
+  <transition>
+    <from>3</from>
+    <to>4</to>
+    <read>"&gt;="</read>
+  </transition>
+  <transition>
+    <from>3</from>
+    <to>4</to>
+    <read>"&amp;"</read>
+  </transition>
+  <transition>
+    <from>3</from>
+    <to>4</to>
+    <read>"||"</read>
+  </transition>
+  <transition>
+    <from>4</from>
+    <to>1</to>
+    <read>"("</read>
+  </transition>
+  <transition>
+    <from>4</from>
+    <to>2</to>
+    <read>ID</read>
+  </transition>
+  <transition>
+    <from>4</from>
+    <to>3</to>
+    <read>Num</read>
+  </transition>
+  <transition>
+    <from>5</from>
+    <to>3</to>
     <read>")"</read>
   </transition>
   <transition>
     <from>6</from>
-    <to>7</to>
-    <read>ExpAritimetica</read>
+    <to>3</to>
+    <read>")"</read>
+  </transition>
+  <transition>
+    <from>6</from>
+    <to>10</to>
+    <read>Exp</read>
   </transition>
   <transition>
     <from>7</from>
     <to>8</to>
+    <read>ExpAritimetica</read>
+  </transition>
+  <transition>
+    <from>8</from>
+    <to>9</to>
     <read>"]"</read>
   </transition>
   <transition>
-    <from>8</from>
-    <to>1</to>
-    <read>"-"</read>
-  </transition>
-  <transition>
-    <from>8</from>
-    <to>6</to>
-    <read>"["</read>
-  </transition>
-  <transition>
-    <from>8</from>
-    <to>1</to>
-    <read>"**"</read>
-  </transition>
-  <transition>
-    <from>8</from>
-    <to>1</to>
-    <read>"*"</read>
-  </transition>
-  <transition>
-    <from>8</from>
-    <to>1</to>
-    <read>"/"</read>
-  </transition>
-  <transition>
-    <from>8</from>
-    <to>1</to>
-    <read>"+"</read>
-  </transition>
-  <transition>
     <from>9</from>
-    <to>10</to>
-    <read>","</read>
+    <to>7</to>
+    <read>"["</read>
   </transition>
   <transition>
     <from>9</from>
     <to>4</to>
+    <read>"&gt;"</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>4</to>
+    <read>"&lt;"</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>4</to>
+    <read>"="</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>4</to>
+    <read>"!="</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>4</to>
+    <read>"&lt;="</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>4</to>
+    <read>"&gt;="</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>4</to>
+    <read>"&amp;"</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>4</to>
+    <read>"||"</read>
+  </transition>
+  <transition>
+    <from>10</from>
+    <to>3</to>
     <read>")"</read>
   </transition>
   <transition>
     <from>10</from>
-    <to>9</to>
-    <read>Exp</read>
+    <to>11</to>
+    <read>","</read>
   </transition>
   <transition>
     <from>11</from>
-    <to>4</to>
-    <read>")"</read>
+    <to>10</to>
+    <read>Exp</read>
   </transition>
 </structure>

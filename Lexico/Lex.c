@@ -2,7 +2,18 @@
 #include <strings.h>
 #include "Table/Table.h"
 
-void advanceLargeComment(FILE *file) {
+FILE *file;
+
+void initLex(char *fileName, char *mode, bool *fileFound) {
+  file = fopen(fileName, mode);
+  *fileFound = file;
+}
+
+void finishLex() {
+  fclose(file);
+}
+
+void advanceLargeComment() {
   char symbols[3];
   symbols[1] = ' '; symbols[2] = 0;
 
@@ -12,7 +23,7 @@ void advanceLargeComment(FILE *file) {
   }
 }
 
-void advanceLineComment(FILE *file) {
+void advanceLineComment() {
   char symbol = 0;
 
   while (symbol != '\n') {
@@ -20,14 +31,14 @@ void advanceLineComment(FILE *file) {
   }
 }
 
-char lookAhead(FILE *file) {
+char lookAhead() {
   char c = fgetc(file);
 
   ungetc(c, file);
   return c;
 }
 
-bool isCompoundSymbol(FILE *file, const char current, char *token) {
+bool isCompoundSymbol(const char current, char *token) {
     if (current == ':' && lookAhead(file) == '=') {
       fgetc(file);
       strcpy(token, ":=");
@@ -40,12 +51,21 @@ bool isCompoundSymbol(FILE *file, const char current, char *token) {
       fgetc(file);
       strcpy(token, "!=");
       return true;
+    } else if (current == '*' && lookAhead(file) == '*') {
+      fgetc(file);
+      strcpy(token, "**");
+      return true;
+    } else if ((current == '>' || current == '<') && lookAhead(file) == '=') {
+      fgetc(file);
+      char symbol[3] = {current, '=', 0};
+      strcpy(token, symbol);
+      return true;
     }
 
     return false;
 }
 
-void getToken(FILE *file, Token *tokenToReturn) {
+void getToken(Token *tokenToReturn) {
   char current, possibleToken[MAX_TOKEN_SIZE], token[MAX_TOKEN_SIZE];
   int i = 0;
 
@@ -54,18 +74,18 @@ void getToken(FILE *file, Token *tokenToReturn) {
 
     if (isDigit(current)) {
       possibleToken[i] = current; i++;
-    } else if (current == '.' && isDigit(lookAhead(file))) {
+    } else if (current == '.' && isDigit(lookAhead())) {
       possibleToken[i] = current; i++;
     } else if (isLetter(current)) {
       possibleToken[i] = current; i++;
     } else if ((current == ' ' || current == '\n') && i == 0) {
       continue;
-    } else if (isCompoundSymbol(file, current, token)) {
+    } else if (i == 0 && isCompoundSymbol(current, token)) {
       break;
-    } else if (current == '/' && lookAhead(file) == '*') {
-      advanceLargeComment(file);
-    } else if (current == '/' && lookAhead(file) == '/') {
-      advanceLineComment(file);
+    } else if (current == '/' && lookAhead() == '*') {
+      advanceLargeComment();
+    } else if (current == '/' && lookAhead() == '/') {
+      advanceLineComment();
     } else if (i != 0) {
       ungetc(current, file);
       possibleToken[i] = 0;
