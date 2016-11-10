@@ -30,7 +30,7 @@ void getNextToken() {
     token = lookAheadToken;
     lookAheadToken.type = -1;
   }
-  printf("Token: %s -> tipo: %d\n", token.token, token.type);
+  printf("\nToken: %s -> tipo: %d\n", token.token, token.type);
 }
 
 bool isTokenEqual(char *word) {
@@ -47,6 +47,15 @@ bool isTokenOnList(char *wordList[], int size) {
   }
 
   return false;
+}
+
+bool isVariableType() {
+  char *types[4] = {"int", "bool", "pflut", "charact"};
+  return isTokenOnList(types, 4);
+}
+
+char *getCurrentToken() {
+  return token.token;
 }
 
 void lookTokenAhead() {
@@ -77,6 +86,7 @@ bool isNextTokenOnList(char *wordList[], int size) {
   return false;
 }
 
-char *getCurrentToken() {
-  return token.token;
+bool isNextTokenVariableType() {
+  char *types[4] = {"int", "bool", "pflut", "charact"};
+  return isNextTokenOnList(types, 4);
 }

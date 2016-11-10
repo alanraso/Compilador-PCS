@@ -101,3 +101,7 @@ void getToken(Token *tokenToReturn) {
   strcpy(tokenToReturn->token, token);
   tokenToReturn->type = getTokenType(token);
 }
+
+bool isEOF() {
+  return feof(file);
+}

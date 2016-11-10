@@ -3,6 +3,8 @@
 #include "../Lexico/Lex.h"
 #include "Data/Data.h"
 #include "Expressao/Expressao.h"
+#include "Comando/Command.h"
+#include "Programa/Programa.h"
 
 #define FILE_NAME "Reconhecedor/ENTRADA_DEV.txt"
 
@@ -44,11 +46,6 @@ bool isArrayIdentifier() {
   return true;
 }
 
-bool isVariableType() {
-  char *types[4] = {"int", "bool", "pflut", "charact"};
-  return isTokenOnList(types, 4);
-}
-
 bool isDeclarationCommand() {
   if (!isVariableType()) {
     return false;
@@ -81,24 +78,11 @@ int main() {
   }
 
   getNextToken();
-  if (isDeclarationCommand()) {
-    printf("FOI\n");
+  if (isProgram()) {
+    printf("FOI!\n");
   } else {
-    printf("NAO FOI\n");
+    printf("NAO FOI!\n");
   }
-
-//  while(!feof(file)) {
-//    getToken(file, &token);
-//    if (isFunction() || isDeclarationCommand()) {
-//      //Identified Function or Declaration
-//    } else if (token.token[0] == -1) {
-//        printf("Texto da linguagem aceito!");
-//        return 0;
-//    } else {
-//      printf("Texto da linguagem incorreto!");
-//      return 0;
-//    }
-//  }
 
   finishLex();
 

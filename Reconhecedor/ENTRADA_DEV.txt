@@ -2,19 +2,19 @@
     PROGRAMA DE TESTE COM TODOS OS ELEMENTOS DA LINGUAGEM
    ******************************************************* */
 
-int global[x > 2 & !(x < 5 || x != 7) ];
 
+int global;
 bool globalBool;
 
 func fatorial(int x)(int) {
-
-  retorna fatorial(x)*fatorial(x-1);
 
   se (x < 1) {
     retorna -1;
   } senao se (x = 1) {
     retorna 1;
   }
+
+  retorna fatorial(x)*fatorial(x-1);
 }
 
 func main()() {
@@ -32,7 +32,7 @@ func main()() {
     num[i] := i+1;
   }
 
-  enquanto (i > -1) {
+  enquanto (i > 1) {
     num[i] := fatorial(num[i]);
     i := i-1;
   }

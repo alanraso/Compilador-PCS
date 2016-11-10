@@ -28,6 +28,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Lexico/Table/Table.h" />
+		<Unit filename="Reconhecedor/Comando/Command.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Reconhecedor/Comando/Command.h" />
 		<Unit filename="Reconhecedor/Data/Data.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -38,6 +42,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Reconhecedor/Expressao/Expressao.h" />
+		<Unit filename="Reconhecedor/Programa/Programa.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Reconhecedor/Programa/Programa.h" />
 		<Unit filename="Reconhecedor/Reconhecedor.c">
 			<Option compilerVar="CC" />
 		</Unit>
