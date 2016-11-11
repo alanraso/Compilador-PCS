@@ -2,9 +2,11 @@
 #include <string.h>
 #include "../../Lexico/Lex.h"
 #include "../Data/Data.h"
+#include "../Semantico/Semantico.h"
 
-int finalExpressionStateList[3] = {2, 4, 10};
-char *operators[13] = {">", "<", "<=", ">=", "=", "!=", "&", "||", "+", "-", "*", "/", "**"};
+int finalExpressionStateList[3] = {2, 4, 8};
+char *arithmeticalOperators[5] = {"+", "-", "*", "/", "**"};
+char *logicalOperators[8] = {">", "<", "<=", ">=", "=", "!=", "&", "||"};
 
 int getExpressionStateFrom0();
 int getExpressionStateFrom1();
@@ -75,6 +77,7 @@ bool isExpression() {
 
     if (!isExpressionFinalState(state)) {
       getNextToken();
+      semantico_tbd();
     }
   }
 
@@ -94,8 +97,7 @@ bool isExpressionFinalState(int state) {
 }
 
 int getExpressionStateFrom0() {
-  if (isTokenEqual("-")) return 1;
-  if (isTokenEqual("!")) return 1;
+  if (isTokenEqual("-") || isTokenEqual("!")) return 1;
   if (isIdentifier()) return 2;
   if (isTokenEqual("(")) return 3;
   if (isNumber()) return 4;
@@ -113,25 +115,21 @@ int getExpressionStateFrom1() {
 int getExpressionStateFrom2() {
   lookTokenAhead();
 
-  if (isNextTokenEqual("-") || isNextTokenEqual("!") || isNextTokenOnList(operators, 13)) {
-    getNextToken();
-    return 1;
-  }
-  if (isNextTokenIdentifier()) {
-    getNextToken();
-    return 2;
-  }
   if (isNextTokenEqual("[")) {
-    getNextToken();
-    return 5;
-  }
-  if (isNextTokenEqual("(")) {
     getNextToken();
     return 6;
   }
-  if (isNextTokenNumber()) {
+  if (isNextTokenEqual("(")) {
     getNextToken();
-    return 4;
+    return 5;
+  }
+  if (isNextTokenOnList(logicalOperators, 8)) {
+    getNextToken();
+    return 0;
+  }
+  if (isNextTokenOnList(arithmeticalOperators, 5)) {
+    getNextToken();
+    return 1;
   }
 
   return Accept;
@@ -145,83 +143,62 @@ int getExpressionStateFrom3() {
 int getExpressionStateFrom4() {
   lookTokenAhead();
 
-  if (isNextTokenEqual("-") || isNextTokenEqual("!") || isNextTokenOnList(operators, 13)) {
+  if (isNextTokenOnList(arithmeticalOperators, 5)) {
     getNextToken();
     return 1;
   }
-  if (isNextTokenIdentifier()) {
+  if (isNextTokenOnList(logicalOperators, 8)) {
     getNextToken();
-    return 2;
-  }
-  if (isNextTokenEqual("[")) {
-    getNextToken();
-    return 5;
-  }
-  if (isNextTokenEqual("(")) {
-    getNextToken();
-    return 3;
-  }
-  if (isNextTokenNumber()) {
-    getNextToken();
-    return 4;
+    return 0;
   }
 
   return Accept;
 }
 
 int getExpressionStateFrom5() {
+  if (isTokenEqual(")")) return 4;
   if (isExpression()) return 9;
-  if (isTokenEqual("[")) return 10;
   return Reject;
 }
 
 int getExpressionStateFrom6() {
   if (isExpression()) return 7;
-  if (isTokenEqual(")")) return 4;
   return Reject;
 }
 
 int getExpressionStateFrom7() {
-  if (isTokenEqual(",")) return 8;
-  if (isTokenEqual(")")) return 4;
+  if (isTokenEqual("]")) return 8;
   return Reject;
 }
 
 int getExpressionStateFrom8() {
-  if (isExpression()) return 7;
-  return Reject;
+  lookTokenAhead();
+
+  if (isNextTokenEqual("[")) {
+    getNextToken();
+    return 6;
+  }
+  if (isNextTokenOnList(arithmeticalOperators, 5)) {
+    getNextToken();
+    return 1;
+  }
+  if (isNextTokenOnList(logicalOperators, 0)) {
+    getNextToken();
+    return 0;
+  }
+
+  return Accept;
 }
 
 int getExpressionStateFrom9() {
-  if (isTokenEqual("]")) return 10;
+  if (isTokenEqual(",")) return 10;
+  if (isTokenEqual(")")) return 4;
   return Reject;
 }
 
 int getExpressionStateFrom10() {
-  lookTokenAhead();
-
-  if (isNextTokenEqual("-") || isNextTokenEqual("!") || isNextTokenOnList(operators, 13)) {
-    getNextToken();
-    return 1;
-  }
-  if (isNextTokenIdentifier()) {
-    getNextToken();
-    return 2;
-  }
-  if (isNextTokenEqual("[")) {
-    getNextToken();
-    return 5;
-  }
-  if (isNextTokenEqual("(")) {
-    getNextToken();
-    return 3;
-  }
-  if (isNextTokenNumber()) {
-    getNextToken();
-    return 4;
-  }
-
-  return Accept;
+  if (isExpression()) return 9;
+  return Reject;
 }
 
 int getExpressionStateFrom11() {

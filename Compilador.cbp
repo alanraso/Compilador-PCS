@@ -37,7 +37,6 @@
 		</Unit>
 		<Unit filename="Reconhecedor/Data/Data.h" />
 		<Unit filename="Reconhecedor/ENTRADA.txt" />
-		<Unit filename="Reconhecedor/ENTRADA_DEV.txt" />
 		<Unit filename="Reconhecedor/Expressao/Expressao.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -49,6 +48,10 @@
 		<Unit filename="Reconhecedor/Reconhecedor.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Reconhecedor/Semantico/Semantico.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Reconhecedor/Semantico/Semantico.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

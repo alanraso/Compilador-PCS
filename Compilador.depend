@@ -1,61 +1,67 @@
 # depslib dependency file v1.0
-1478736588 source:c:\alan\compiladores\compilador-pcs\lexico\lex.c
+1478881501 source:c:\alan\compiladores\compilador-pcs\lexico\lex.c
 	<stdio.h>
 	<strings.h>
 	"Table/Table.h"
 
-1477963232 c:\alan\compiladores\compilador-pcs\lexico\table\table.h
+1478881501 c:\alan\compiladores\compilador-pcs\lexico\table\table.h
 	<stdbool.h>
 
-1478233338 source:c:\alan\compiladores\compilador-pcs\lexico\table\table.c
+1478881501 source:c:\alan\compiladores\compilador-pcs\lexico\table\table.c
 	<stdio.h>
 	<stdbool.h>
 	<string.h>
 	"Table.h"
 
-1478736688 source:c:\alan\compiladores\compilador-pcs\reconhecedor\reconhecedor.c
+1478896100 source:c:\alan\compiladores\compilador-pcs\reconhecedor\reconhecedor.c
 	<stdio.h>
 	<string.h>
 	"../Lexico/Lex.h"
 	"Data/Data.h"
-	"Expressao/Expressao.h"
-	"Comando/Command.h"
 	"Programa/Programa.h"
 
-1478736550 c:\alan\compiladores\compilador-pcs\lexico\lex.h
+1478881501 c:\alan\compiladores\compilador-pcs\lexico\lex.h
 	"Table/Table.h"
 
-1478742087 source:c:\alan\compiladores\compilador-pcs\reconhecedor\data\data.c
+1478881501 source:c:\alan\compiladores\compilador-pcs\reconhecedor\data\data.c
 	<string.h>
 	<stdio.h>
 	"../../Lexico/Lex.h"
 
-1478742019 source:c:\alan\compiladores\compilador-pcs\reconhecedor\expressao\expressao.c
+1478896207 source:c:\alan\compiladores\compilador-pcs\reconhecedor\expressao\expressao.c
 	<stdio.h>
 	<string.h>
 	"../../Lexico/Lex.h"
 	"../Data/Data.h"
+	"../Semantico/Semantico.h"
 
-1478735912 c:\alan\compiladores\compilador-pcs\reconhecedor\data\data.h
+1478881501 c:\alan\compiladores\compilador-pcs\reconhecedor\data\data.h
 
-1478294127 c:\alan\compiladores\compilador-pcs\reconhecedor\expressao\expressao.h
+1478881501 c:\alan\compiladores\compilador-pcs\reconhecedor\expressao\expressao.h
 
-1478742215 source:c:\alan\compiladores\compilador-pcs\reconhecedor\comando\command.c
+1478896233 source:c:\alan\compiladores\compilador-pcs\reconhecedor\comando\command.c
 	<stdio.h>
 	<string.h>
 	"../../Lexico/Lex.h"
 	"../Data/Data.h"
 	"../Expressao/Expressao.h"
+	"../Semantico/Semantico.h"
 
-1478647721 c:\alan\compiladores\compilador-pcs\reconhecedor\comando\command.h
+1478881501 c:\alan\compiladores\compilador-pcs\reconhecedor\comando\command.h
 
-1478736901 source:c:\alan\compiladores\compilador-pcs\reconhecedor\programa\programa.c
+1478896150 source:c:\alan\compiladores\compilador-pcs\reconhecedor\programa\programa.c
 	<stdio.h>
 	<string.h>
 	"../../Lexico/Lex.h"
 	"../Data/Data.h"
 	"../Comando/Command.h"
 	"../Expressao/Expressao.h"
+	"../Semantico/Semantico.h"
 
-1478659123 c:\alan\compiladores\compilador-pcs\reconhecedor\programa\programa.h
+1478881501 c:\alan\compiladores\compilador-pcs\reconhecedor\programa\programa.h
+
+1478896077 source:c:\alan\compiladores\compilador-pcs\reconhecedor\semantico\semantico.c
+	<stdio.h>
+
+1478895984 c:\alan\compiladores\compilador-pcs\reconhecedor\semantico\semantico.h
 

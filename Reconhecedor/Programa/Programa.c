@@ -4,6 +4,7 @@
 #include "../Data/Data.h"
 #include "../Comando/Command.h"
 #include "../Expressao/Expressao.h"
+#include "../Semantico/Semantico.h"
 
 int finalProgramState = 17;
 
@@ -30,7 +31,6 @@ bool isProgram() {
   int state = 0;
 
   while (1) {
-    printf(" >Programa: Estado atual: %d, Token: %s\n", state, getCurrentToken());
     switch(state) {
       case 0:
         state = getProgramStateFrom0();
@@ -157,6 +157,7 @@ bool isProgram() {
     }
     if (!isProgramFinalState(state)) {
       getNextToken();
+      semantico_tbd();
     }
   }
 }

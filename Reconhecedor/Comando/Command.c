@@ -3,6 +3,7 @@
 #include "../../Lexico/Lex.h"
 #include "../Data/Data.h"
 #include "../Expressao/Expressao.h"
+#include "../Semantico/Semantico.h"
 
 int finalCommandStateList[2] = {10, 41};
 
@@ -30,7 +31,6 @@ bool isCommand() {
   int state = 0;
 
   while (1) {
-    printf(" >Comando: Estado atual: %d, Token: %s\n", state, getCurrentToken());
     switch(state) {
       case 0:
         state = getCommandStateFrom0();
@@ -176,6 +176,7 @@ bool isCommand() {
 
     if (!isCommandFinalState(state)) {
       getNextToken();
+      semantico_tbd();
     }
   }
 }

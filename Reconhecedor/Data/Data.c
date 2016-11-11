@@ -30,7 +30,6 @@ void getNextToken() {
     token = lookAheadToken;
     lookAheadToken.type = -1;
   }
-  printf("\nToken: %s -> tipo: %d\n", token.token, token.type);
 }
 
 bool isTokenEqual(char *word) {
