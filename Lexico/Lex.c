@@ -2,9 +2,18 @@
 #include <strings.h>
 #include "Table/Table.h"
 
-#define FILE_NAME "ENTRADA.txt"
+FILE *file;
 
-void advanceLargeComment(FILE *file) {
+void initLex(char *fileName, char *mode, bool *fileFound) {
+  file = fopen(fileName, mode);
+  *fileFound = file;
+}
+
+void finishLex() {
+  fclose(file);
+}
+
+void advanceLargeComment() {
   char symbols[3];
   symbols[1] = ' '; symbols[2] = 0;
 
@@ -14,7 +23,7 @@ void advanceLargeComment(FILE *file) {
   }
 }
 
-void advanceLineComment(FILE *file) {
+void advanceLineComment() {
   char symbol = 0;
 
   while (symbol != '\n') {
@@ -22,14 +31,14 @@ void advanceLineComment(FILE *file) {
   }
 }
 
-char lookAhead(FILE *file) {
+char lookAhead() {
   char c = fgetc(file);
 
   ungetc(c, file);
   return c;
 }
 
-bool isCompoundSymbol(FILE *file, const char current, char *token) {
+bool isCompoundSymbol(const char current, char *token) {
     if (current == ':' && lookAhead(file) == '=') {
       fgetc(file);
       strcpy(token, ":=");
@@ -38,13 +47,26 @@ bool isCompoundSymbol(FILE *file, const char current, char *token) {
       fgetc(file);
       strcpy(token, "||");
       return true;
+    } else if (current == '!' && lookAhead(file) == '=') {
+      fgetc(file);
+      strcpy(token, "!=");
+      return true;
+    } else if (current == '*' && lookAhead(file) == '*') {
+      fgetc(file);
+      strcpy(token, "**");
+      return true;
+    } else if ((current == '>' || current == '<') && lookAhead(file) == '=') {
+      fgetc(file);
+      char symbol[3] = {current, '=', 0};
+      strcpy(token, symbol);
+      return true;
     }
 
     return false;
 }
 
-int getToken(FILE *file, char *token) {
-  char current, possibleToken[100];
+void getToken(Token *tokenToReturn) {
+  char current, possibleToken[MAX_TOKEN_SIZE], token[MAX_TOKEN_SIZE];
   int i = 0;
 
   while (!feof(file)) {
@@ -52,18 +74,18 @@ int getToken(FILE *file, char *token) {
 
     if (isDigit(current)) {
       possibleToken[i] = current; i++;
-    } else if (current == '.' && isDigit(lookAhead(file))) {
+    } else if (current == '.' && isDigit(lookAhead())) {
       possibleToken[i] = current; i++;
     } else if (isLetter(current)) {
       possibleToken[i] = current; i++;
     } else if ((current == ' ' || current == '\n') && i == 0) {
       continue;
-    } else if (isCompoundSymbol(file, current, token)) {
+    } else if (i == 0 && isCompoundSymbol(current, token)) {
       break;
-    } else if (current == '/' && lookAhead(file) == '*') {
-      advanceLargeComment(file);
-    } else if (current == '/' && lookAhead(file) == '/') {
-      advanceLineComment(file);
+    } else if (current == '/' && lookAhead() == '*') {
+      advanceLargeComment();
+    } else if (current == '/' && lookAhead() == '/') {
+      advanceLineComment();
     } else if (i != 0) {
       ungetc(current, file);
       possibleToken[i] = 0;
@@ -76,42 +98,10 @@ int getToken(FILE *file, char *token) {
     }
   }
 
-  return getTokenType(token);
+  strcpy(tokenToReturn->token, token);
+  tokenToReturn->type = getTokenType(token);
 }
 
-void reset(char *stringToReset) {
-  int i;
-  for (i = 0; i < MAX_TOKEN_SIZE; i++) {
-    stringToReset[i] = 0;
-  }
+bool isEOF() {
+  return feof(file);
 }
-
-void printToken(const char *token, int type) {
-  if (token[0] == EOF) {
-    return;
-  }
-
-  int i;
-  printf("%s", token);
-  for (i = 0; i < 30 - strlen(token); i++) {
-    printf(" ");
-  }
-  printf("%d\n", type);
-}
-
-int main() {
-  char token[100]; int type;
-  FILE *file = fopen(FILE_NAME, "r");
-
-  printf("Tipos -> 0 - Identificador, 1 - Palavra reservada, 2 - Numero, 3 - Sinal, 4 - Nenhum\n\n");
-  printf("Token                        Tipo\n");
-  while(!feof(file)) {
-    type = getToken(file, token);
-    printToken(token, type);
-    reset(token);
-  }
-
-  fclose(file);
-  return 0;
-}
-
